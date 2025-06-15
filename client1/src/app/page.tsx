@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Navbar,
   NavBody,
@@ -17,6 +17,10 @@ import {
 import { ThemeToggleButton } from "@/components/theme-toggle-button";
 
 export default function Home() {
+  useEffect(() => {
+    document.title = "Home - proPAL AI";
+  }, []);
+
   const navItems = [
     {
       name: "Features",
@@ -42,9 +46,12 @@ export default function Home() {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
-            <ThemeToggleButton />
-            <NavbarButton variant="secondary">Login</NavbarButton>
-            <NavbarButton variant="primary">Book a call</NavbarButton>
+            <div className="flex items-center">
+              <ThemeToggleButton className="border border-gray-300 dark:border-gray-600" />
+            </div>
+            <Link href="/signup">
+              <NavbarButton variant="primary">Sign Up</NavbarButton>
+            </Link>
           </div>
         </NavBody>
 
@@ -76,20 +83,15 @@ export default function Home() {
               </a>
             ))}
             <div className="flex w-full flex-col gap-4">
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full"
-              >
-                Login
-              </NavbarButton>
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full"
-              >
-                Book a call
-              </NavbarButton>
+              <Link href="/signup">
+                <NavbarButton
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  variant="primary"
+                  className="w-full"
+                >
+                  Sign Up
+                </NavbarButton>
+              </Link>
             </div>
           </MobileNavMenu>
         </MobileNav>
@@ -113,7 +115,7 @@ export default function Home() {
                     href="/signup"
                     className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
                   >
-                    Get a demo
+                    Get Started
                   </Link>
                   <Link
                     href="#features"
@@ -227,7 +229,7 @@ export default function Home() {
                 href="/signup"
                 className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
               >
-                Get a demo
+                Get Started
               </Link>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 No credit card required. Free consultation.

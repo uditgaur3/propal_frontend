@@ -6,12 +6,19 @@ import { cn } from "@/lib/utils";
 
 export function ThemeToggleButton({ className }: { className?: string }) {
   const { theme, toggleTheme } = useTheme();
+  
+  const handleClick = () => {
+    console.log('Theme toggle clicked, current theme:', theme);
+    toggleTheme();
+  };
+  
   return (
     <button
-      onClick={toggleTheme}
+      onClick={handleClick}
       className={cn(
-        "p-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2",
-        "hover:bg-gray-200 dark:hover:bg-gray-700",
+        "relative z-[70] p-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2",
+        "hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300",
+        "transition-colors duration-200 cursor-pointer",
         className
       )}
       aria-label="Toggle Theme"

@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from 'next/script';
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AuthProvider } from "@/contexts/auth-context";
+import { NotificationProvider } from "@/contexts/notification-context";
+import { Footer } from "@/components/common-footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +18,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "proPAL ai",
-  description: "proPAL AI frontend assignment",
+  title: {
+    template: "%s - proPAL AI",
+    default: "proPAL AI - Proposal Management Platform",
+  },
+  description: "proPAL AI frontend assignment - Advanced proposal management solutions",
 };
 
 export default function RootLayout({
@@ -42,7 +48,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <NotificationProvider>
+              <div className="min-h-screen flex flex-col">
+                <main className="flex-grow">
+                  {children}
+                </main>
+                <Footer />
+              </div>
+            </NotificationProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
