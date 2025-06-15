@@ -87,7 +87,7 @@ export const AdminLoginDemo = () => {
               >
                 Go to Dashboard
               </button>
-                {isAdmin() && (
+              {isAdmin() && (
                 <button
                   onClick={() => {
                     console.log('Admin panel button clicked');

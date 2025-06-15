@@ -1,0 +1,7 @@
+# For Python scripts or tools (if any are used)
+# If you do not use Python, you can ignore this file.
+
+# Example requirements (uncomment if you use these):
+# requests
+# numpy
+# pandas
