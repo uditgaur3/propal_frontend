@@ -52,11 +52,11 @@ export async function POST(request: NextRequest) {
     const { password: _, ...safeUser } = user;
     return NextResponse.json({ user: safeUser });
 
-  } catch (error) {
-    console.error('Error during login:', error);
+  } catch (error: any) {
+    console.error('Login error:', error); // Log the actual error
     return NextResponse.json(
-      { error: 'Failed to authenticate user' },
-      { status: 500 }
+      { message: error.message || 'Invalid credentials' },
+      { status: 401 }
     );
   }
 }

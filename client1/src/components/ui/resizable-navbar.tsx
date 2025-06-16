@@ -234,9 +234,8 @@ export const NavbarLogo = () => {
       <img
         src="/logo.webp"
         alt="logo"
-        width={120}
-        height={48}
-        className="h-12 w-auto"
+        width={100}
+        height={10}
       />
     </a>
   );

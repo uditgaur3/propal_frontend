@@ -20,6 +20,7 @@ async function readUsers(): Promise<User[]> {
     return JSON.parse(data);
   } catch (error) {
     // If file doesn't exist or is empty, return empty array
+    console.error("Error reading users file, returning empty array:", error);
     return [];
   }
 }
@@ -33,11 +34,11 @@ export async function GET() {
   try {
     const users = await readUsers();
     // Don't return passwords in the response
-    const safeUsers = users.map(({ password, ...user }) => user);
+    const safeUsers = users.map(({ password: _password, ...user }) => user);
     return NextResponse.json(safeUsers);
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error reading users:', error);
-    return NextResponse.json({ error: 'Failed to read users' }, { status: 500 });
+    return NextResponse.json({ message: 'Failed to read users' }, { status: 500 });
   }
 }
 
@@ -48,14 +49,14 @@ export async function POST(request: NextRequest) {
     // Validation
     if (!username || !email || !password) {
       return NextResponse.json(
-        { error: 'Username, email, and password are required' },
+        { message: 'Username, email, and password are required' },
         { status: 400 }
       );
     }
 
     if (password.length < 6) {
       return NextResponse.json(
-        { error: 'Password must be at least 6 characters long' },
+        { message: 'Password must be at least 6 characters long' },
         { status: 400 }
       );
     }
@@ -66,15 +67,17 @@ export async function POST(request: NextRequest) {
     const existingUser = users.find(user => user.email === email);
     if (existingUser) {
       return NextResponse.json(
-        { error: 'User with this email already exists' },
+        { message: 'User with this email already exists' },
         { status: 409 }
       );
-    }    // Create new user
+    }
+
+    // In a real app, hash the password here before saving
     const newUser: User = {
-      id: Date.now().toString(),
+      id: Date.now().toString(), // Simple ID generation
       username,
       email,
-      password, // In production, this should be hashed
+      password, // Store password as is (for demo only, hash in production)
       phoneNumber: phoneNumber || undefined,
       role: role || 'user'
     };
@@ -83,14 +86,10 @@ export async function POST(request: NextRequest) {
     await writeUsers(users);
 
     // Return user without password
-    const { password: _, ...safeUser } = newUser;
-    return NextResponse.json({ user: safeUser }, { status: 201 });
-
-  } catch (error) {
+    const { password: _removedPassword, ...safeNewUser } = newUser;
+    return NextResponse.json(safeNewUser, { status: 201 });
+  } catch (error: any) {
     console.error('Error creating user:', error);
-    return NextResponse.json(
-      { error: 'Failed to create user' },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: error.message || 'Failed to create user' }, { status: 500 });
   }
 }

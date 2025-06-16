@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/contexts/auth-context";
 import { NotificationProvider } from "@/contexts/notification-context";
 import { Footer } from "@/components/common-footer";
+import { SiteHeader } from '@/components/site-header';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
+   return (
     <html lang="en">
       <head>
         {/* Initialize theme before React hydration */}
@@ -47,11 +48,13 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      >  
         <ThemeProvider>
           <AuthProvider>
             <NotificationProvider>
               <div className="min-h-screen flex flex-col">
+                {/* Site Header with logo link */}
+                <SiteHeader />
                 <main className="flex-grow">
                   {children}
                 </main>

@@ -4,9 +4,10 @@ import { useAuth } from '@/contexts/auth-context';
 import { useRouter, usePathname } from 'next/navigation';
 import { ProtectedRoute } from '@/components/protected-route';
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
-import { useEffect, ReactNode } from 'react';
+import { useEffect, ReactNode, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { IconMenu2, IconX } from '@tabler/icons-react';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -16,6 +17,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const { user, logout, isAdmin } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     document.title = "Dashboard - proPAL AI";
@@ -96,28 +98,49 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex gap-6">
+          <div className="flex">
+            {/* Sidebar toggle button on small screens */}
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 mr-4 md:hidden bg-white dark:bg-gray-800 rounded-md"
+            >
+              {sidebarOpen ? <IconX className="h-6 w-6" /> : <IconMenu2 className="h-6 w-6" />}
+            </button>
+            {/* Sidebar overlay for mobile */}
+            {sidebarOpen && (
+              <div
+                className="fixed inset-0 z-40 bg-black bg-opacity-30 md:hidden"
+                onClick={() => setSidebarOpen(false)}
+              />
+            )}
             {/* Sidebar */}
-            <div className="w-64 flex-shrink-0">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+            <div
+              className={`fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 ease-in-out
+                ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+                md:translate-x-0 md:static md:inset-auto`}
+              style={{ perspective: '1000px' }}
+            >
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
                 <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                  <h2 className="text-lg font-medium text-gray-900 dark:text-white">
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                     Dashboard Menu
                   </h2>
                 </div>
                 <nav className="space-y-1 p-2">
                   {sidebarItems.map((item) => {
                     const isActive = pathname === item.href;
-                    return (                      <Link
+                    return (
+                      <Link
                         key={item.name}
                         href={item.href}
-                        className={`flex items-center px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 transform hover:scale-105 ${
+                        className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg bg-white dark:bg-gray-800 mb-2 transition-transform duration-300 transform-style-preserve-3d hover:rotate-y-3 hover:scale-105 ${
                           isActive
-                            ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-200 shadow-md'
-                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white hover:shadow-sm'
+                            ? 'bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-xl'
+                            : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
                         }`}
+                        style={{ transformStyle: 'preserve-3d' }}
                       >
-                        <span className={`mr-3 ${isActive ? 'text-indigo-500' : 'text-gray-400'}`}>
+                        <span className={`mr-3 ${isActive ? 'text-white' : 'text-gray-400'}`}>  
                           {item.icon}
                         </span>
                         {item.name}

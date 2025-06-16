@@ -200,7 +200,7 @@ export default function AgentPage() {
               </label>              <select
                 value={selectedProvider}
                 onChange={(e) => handleProviderChange(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition-all duration-200 hover:border-indigo-400 focus:scale-[1.02]"
+                className="w-full text-sm px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition-all duration-200 hover:border-indigo-400 focus:scale-[1.02]"
               ><option value="">Select Provider</option>
                 {sttConfig.stt.map((provider) => (
                   <option key={provider.value} value={provider.value}>
@@ -218,7 +218,7 @@ export default function AgentPage() {
                 value={selectedModel}
                 onChange={(e) => handleModelChange(e.target.value)}
                 disabled={!selectedProvider}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200 hover:border-indigo-400 focus:scale-[1.02] disabled:hover:border-gray-300"
+                className="w-full text-sm px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200 hover:border-indigo-400 focus:scale-[1.02] disabled:hover:border-gray-300"
               ><option value="">Select Model</option>
                 {getAvailableModels().map((model) => (
                   <option key={model.value} value={model.value}>
@@ -236,7 +236,7 @@ export default function AgentPage() {
                 value={selectedLanguage}
                 onChange={(e) => handleLanguageChange(e.target.value)}
                 disabled={!selectedModel}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200 hover:border-indigo-400 focus:scale-[1.02] disabled:hover:border-gray-300"
+                className="w-full text-sm px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white disabled:bg-gray-100 disabled:cursor-not-allowed transition-all duration-200 hover:border-indigo-400 focus:scale-[1.02] disabled:hover:border-gray-300"
               ><option value="">Select Language</option>
                 {getAvailableLanguages().map((language) => (
                   <option key={language.value} value={language.value}>

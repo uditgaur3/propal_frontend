@@ -7,17 +7,19 @@ export const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <img
-                src="/logo.webp"
-                alt="Company Logo"
-                width={120}
-                height={40}
-                className="h-8 w-auto"
-              />
+              <Link href="/">
+                <img
+                  src="/logo.webp"
+                  alt="Company Logo"
+                  width={120}
+                  height={40}
+                  className="h-8 w-auto"
+                />
+              </Link>
             </div>
             <p className="text-gray-300 text-sm mb-4 max-w-md">
               Your trusted platform for comprehensive proposal management solutions. 
@@ -106,7 +108,8 @@ export const Footer = () => {
 
         {/* Contact Information */}
         <div className="mt-8 pt-8 border-t border-gray-800">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+            {/* flattened grid */}
             <div>
               <h4 className="text-sm font-semibold text-white mb-2">Email</h4>
               <p className="text-gray-300 text-sm">support@yourcompany.com</p>
@@ -130,17 +133,6 @@ export const Footer = () => {
           <p className="text-gray-400 text-sm">
             © {new Date().getFullYear()} Your Company Name. All rights reserved.
           </p>
-          <div className="mt-4 md:mt-0 flex space-x-6">
-            <Link href="/sitemap" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Sitemap
-            </Link>
-            <Link href="/accessibility" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Accessibility
-            </Link>
-            <Link href="/security" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Security
-            </Link>
-          </div>
         </div>
       </div>
     </footer>
