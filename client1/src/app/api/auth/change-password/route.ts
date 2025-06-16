@@ -81,10 +81,10 @@ export async function POST(request: NextRequest) {
       message: 'Password updated successfully' 
     }, { status: 200 });
 
-  } catch (error: any) {
-    console.error('Change password error:', error); // Log the actual error
+  } catch (error) {
+    console.error('Change password error:', error);
     return NextResponse.json(
-      { message: error.message || 'Error changing password' },
+      { message: (error as Error).message || 'Error changing password' },
       { status: 500 }
     );
   }
